@@ -88,65 +88,54 @@ script.on_event('flip-blueprint-vertical', function(event)
     transformList[blueprint.item_number] = transform
 end)
 
--- script.on_event(defines.events.on_pre_build, function(event)
---     game.print(serializeTable(event.direction))
+-- ---@param args { var1: number, var2: string}
+-- function force_place_blueprint(args)
+--     local blueprint = args.blueprint
+--     if not (blueprint) then
+--         return
+--     end
+
+--     local surface = args.surface
+--     local force = args.force
+--     local position = args.position
+
+--     if (args.transform) then
+--         local transform = table.deepcopy(args.transform)
+--     else
+--         local transform = table.deepcopy(defaultTransform)
+--         transform.rotation = args.direction
+--         transform.flip_horizontal = args.flip_horizontal or false
+--         transform.flip_vertical = args.flip_vertical or false
+--     end
+
+--     local skip_fog_of_war = args.skip_fog_of_war or false
+--     local by_player = args.by_player or false
+--     local raise_built = args.raise_built or false
+
+--     local original_blueprint_entities = table.deepcopy(blueprint.get_blueprint_entities())
+
+-- end
+
+-- script.on_event(mod_defines.input.force_place, function(event)
+--     local player = game.players[event.player_index]
+--     local blueprint = bluelib.get_blueprint_on_cursor(player)
+--     if not (blueprint) then
+--         return
+--     end
+
+--     local pos = event.cursor_position
+--     local transform = table.deepcopy(transformList[blueprint.item_number]) or table.deepcopy(defaultTransform)
+--     local surface = player.surface
+--     local force = player.force
+
+--     force_place_blueprint {
+--         surface = surface,
+--         force = force,
+--         transform = transform,
+--         position = pos,
+--         blueprint = blueprint
+--     }
 -- end)
-
--- script.on_event(defines.events.on_player_rotated_entity, function(event)
---     -- game.print(serializeTable(event.entity.item_requests))
---     game.print(serializeTable(event.entity.get_module_inventory().get_contents()))
--- end)
-
-force_place_blueprint()
-
----@param args { var1: number, var2: string}
-function force_place_blueprint(args)
-    local blueprint = args.blueprint
-    if not (blueprint) then
-        return
-    end
-
-    local surface = args.surface
-    local force = args.force
-    local position = args.position
-
-    if (args.transform) then
-        local transform = table.deepcopy(args.transform)
-    else
-        local transform = table.deepcopy(defaultTransform)
-        transform.rotation = args.direction
-        transform.flip_horizontal = args.flip_horizontal or false
-        transform.flip_vertical = args.flip_vertical or false
-    end
-
-    local skip_fog_of_war = args.skip_fog_of_war or false
-    local by_player = args.by_player or false
-    local raise_built = args.raise_built or false
-
-    local original_blueprint_entities = table.deepcopy(blueprint.get_blueprint_entities())
-
-end
-
-script.on_event(mod_defines.input.force_place, function(event)
-    local player = game.players[event.player_index]
-    local blueprint = bluelib.get_blueprint_on_cursor(player)
-    if not (blueprint) then
-        return
-    end
-
-    local pos = event.cursor_position
-    local transform = table.deepcopy(transformList[blueprint.item_number]) or table.deepcopy(defaultTransform)
-    local surface = player.surface
-    local force = player.force
-
-    force_place_blueprint {
-        surface = surface,
-        force = force,
-        transform = transform,
-        position = pos,
-        blueprint = blueprint
-    }
-end)
 
 script.on_event(mod_defines.input.force_place, function(event)
     local player = game.players[event.player_index]
